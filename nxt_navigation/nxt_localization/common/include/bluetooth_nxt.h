@@ -1,4 +1,4 @@
-/*	nxt.h (still under development)
+/*	bluetooth_nxt.h (still under development)
  * 	Authors: Christian A. Mueller, Paul G. Ploeger
  *  Modified by: Frederik Hegger
  *
@@ -45,14 +45,14 @@
 #define  MAX_MESSAGE_SIZE 64
 //64
 
-class Nxt
+class BluetoothNXT
 {
 private:
 	int nxtSocket;
 	std::string btAddressNxt;
 	bool isConn;
 public:
-	Nxt();
+	BluetoothNXT();
 	bool findAndConnectNxt();
 	std::vector< std::pair< std::string,std::string> > findNxt(char addr[19]);
 	int connectNxt(char *btAddress);

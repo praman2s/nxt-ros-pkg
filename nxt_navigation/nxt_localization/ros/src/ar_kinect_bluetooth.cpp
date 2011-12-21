@@ -125,7 +125,7 @@ namespace ar_pose
     // establish bluetooth connection
     if(publishBluetooth_)
     {
-		this->nxt_ = new Nxt();
+		this->nxt_ = new BluetoothNXT();
 
 		std::string device_id = "00:16:53:09:BD:4B";
 		ROS_INFO("try to connect to bluetooth device: %s ...", device_id.c_str());

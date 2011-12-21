@@ -55,7 +55,7 @@
 #include <ar_pose/ARMarker.h>
 #include "ar_object.h"
 
-#include <nxt.h>
+#include <bluetooth_nxt.h>
 #include <tf/transform_listener.h>
 
 const std::string cloudTopic_ = "/camera/rgb/points";
@@ -105,7 +105,7 @@ namespace ar_pose
     IplImage *capture_;
     bool configured_;
 
-    Nxt *nxt_;
+    BluetoothNXT *nxt_;
     tf::TransformListener *transform_listener_;
   };                            // end class ARPublisher
 }                               //end namespace ar_pose

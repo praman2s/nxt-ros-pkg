@@ -1,4 +1,4 @@
-/*	nxt.cpp (still under development)
+/*	bluetooth_nxt.cpp (still under development)
  * 	Authors: Christian A. Mueller, Paul G. Ploeger
  *
  *	Copyright 2011
@@ -19,7 +19,7 @@
  *   along with NXTLocalizationSystem.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <nxt.h>
+#include <bluetooth_nxt.h>
 #include <algorithm>
 #include <utility>
 #include <map>
@@ -29,12 +29,12 @@
  * http://people.csail.mit.edu/albert/bluez-intro/
  * */
 
-Nxt::Nxt() {
+BluetoothNXT::BluetoothNXT() {
 	btAddressNxt = "-";
 	this->isConn = false;
 }
 
-bool Nxt::findAndConnectNxt() {
+bool BluetoothNXT::findAndConnectNxt() {
 	char addr[19];
 	this->findNxt(addr);
 	if (this->connectNxt(addr) == 0) {
@@ -44,17 +44,17 @@ bool Nxt::findAndConnectNxt() {
 	return false;
 }
 
-bool Nxt::isConnected() {
+bool BluetoothNXT::isConnected() {
 	return this->isConn;
 }
 
-std::string Nxt::getBTAddressNxt() {
+std::string BluetoothNXT::getBTAddressNxt() {
 
 	return btAddressNxt;
 }
 
-std::vector<std::pair<std::string, std::string> > Nxt::findNxt(char addr[19]) {
-	std::cout << "Nxt finding...\n";
+std::vector<std::pair<std::string, std::string> > BluetoothNXT::findNxt(char addr[19]) {
+	std::cout << "BluetoothNXT finding...\n";
 	std::vector<std::pair<std::string, std::string> > foundDevs;
 
 	int max_rsp, num_rsp;
@@ -97,7 +97,7 @@ std::vector<std::pair<std::string, std::string> > Nxt::findNxt(char addr[19]) {
 	return foundDevs;
 }
 
-int Nxt::connectNxt(char *btAddress) {
+int BluetoothNXT::connectNxt(char *btAddress) {
 	struct sockaddr_rc addr = { 0 };
 	int status;
 	printf("Connect to %s \n", btAddress);
@@ -119,14 +119,14 @@ int Nxt::connectNxt(char *btAddress) {
 	return 0;
 }
 
-int Nxt::disconnectNxt() {
+int BluetoothNXT::disconnectNxt() {
 	close(nxtSocket);
 	btAddressNxt = "-";
 	isConn = false;
 	return 0;
 }
 
-int Nxt::sendMessage(int mbox, char *message) {
+int BluetoothNXT::sendMessage(int mbox, char *message) {
 
 	if (this->isConnected() == false) {
 		return -1;
@@ -143,7 +143,7 @@ int Nxt::sendMessage(int mbox, char *message) {
 		fprintf(stderr, "messagewrite : message is to long");
 		return -1;
 	}
-	// Message send to nxt consists of follwoing commands
+	// Message send to BluetoothNXT consists of follwoing commands
 	cmd[0] = 0x00;//08
 	cmd[1] = 0x09;
 	cmd[2] = mbox;
@@ -201,7 +201,7 @@ int Nxt::sendMessage(int mbox, char *message) {
 	return 0;
 }
 
-int Nxt::readMessage(int mbox, std::string &strMessage) {
+int BluetoothNXT::readMessage(int mbox, std::string &strMessage) {
 	if (this->isConnected() == false) {
 		return -1;
 	}
@@ -212,7 +212,7 @@ int Nxt::readMessage(int mbox, std::string &strMessage) {
 	int result, cmdlength, msgsize;
 	int error = 0;
 
-	// creating nxt command for reading message from mailbox;
+	// creating BluetoothNXT command for reading message from mailbox;
 	cmd[0] = 0x00;
 	cmd[1] = 0x13;
 	cmd[2] = mbox + 10;

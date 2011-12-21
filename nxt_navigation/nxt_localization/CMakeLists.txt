@@ -36,7 +36,7 @@ include_directories(
 
 ########### LIBRARIES ###############################
 rosbuild_add_library(nxt_bluetooth 
-	common/src/nxt.cpp
+	common/src/bluetooth_nxt.cpp
 )
 
 ########### EXECUTEABLES ############################

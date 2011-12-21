@@ -1,4 +1,4 @@
-#include <nxt.h>
+#include <bluetooth_nxt.h>
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Nxt *nxt = new Nxt();
+	BluetoothNXT *nxt = new BluetoothNXT();
 	std::string msg;
 
 	nxt->connectNxt((char*)"00:16:53:09:BD:4B");
