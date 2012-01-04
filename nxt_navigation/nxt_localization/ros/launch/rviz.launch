@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+	<node name="rviz" pkg="rviz" type="rviz" output="screen" args="$(find nxt_localization)/ros/cfg/rviz_view.vcg" />
+</launch>
