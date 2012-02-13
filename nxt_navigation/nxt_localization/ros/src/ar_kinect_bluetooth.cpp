@@ -33,6 +33,8 @@
 #include <boost/lexical_cast.hpp>
 #include <geometry_msgs/PoseStamped.h>
 
+using namespace std;
+
 int main (int argc, char **argv)
 {
   ros::init (argc, argv, "ar_kinect_bluetooth");
@@ -125,17 +127,44 @@ namespace ar_pose
     // establish bluetooth connection
     if(publishBluetooth_)
     {
+    	char user_input = ' ';
+    	int user_choice = -1;
+    	char addr[19];
+    	std::vector<std::pair<std::string, std::string> > found_devices;
 		this->nxt_ = new BluetoothNXT();
 
 		std::string device_id = "00:16:53:09:BD:4B";
-		ROS_INFO("try to connect to bluetooth device: %s ...", device_id.c_str());
-		if(this->nxt_->connectNxt((char*)device_id.c_str()) != 0)
+
+
+		do
 		{
-			ROS_ERROR("could not connect to bluetooth device %s", device_id.c_str());
+			// find bluetooth devices
+			found_devices.clear();
+
+			cout << "Pending for bluetooth devices ..." << endl;
+			found_devices = this->nxt_->findNxt(addr);
+
+			// list found devices
+			cout << "Available bluetooth devices:" << endl << endl;
+			cout << "   (0) " << "search again for bluetooth devices" << endl;
+			for(unsigned int i=0; i < found_devices.size(); ++i)
+				cout << "   (" << i+1 << ") " << found_devices[i].first << " --- " << found_devices[i].second << endl;
+
+			cout << endl << "Please select an option (0 - " << found_devices.size() << "): ";
+			cin >> user_input;
+
+			user_choice = atoi(&user_input);
+
+		}while(user_choice <= 0 || user_choice > (int)found_devices.size());
+
+		cout << "try to connect to bluetooth device: " <<  found_devices[user_choice-1].first << " (" << found_devices[user_choice-1].second << ") ... " << endl;
+		if(this->nxt_->connectNxt((char*)found_devices[user_choice-1].first.c_str()) != 0)
+		{
+			cout << "could not connect to device" << found_devices[user_choice-1].first << endl;
 			exit(0);
 		}
 		else
-			ROS_INFO("connected to bluetooth device: %s", device_id.c_str());
+			cout << "connected" << endl;
 
 		this->transform_listener_ = new tf::TransformListener();
     }
