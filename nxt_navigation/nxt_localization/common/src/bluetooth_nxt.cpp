@@ -54,7 +54,7 @@ std::string BluetoothNXT::getBTAddressNxt() {
 }
 
 std::vector<std::pair<std::string, std::string> > BluetoothNXT::findNxt(char addr[19]) {
-	std::cout << "BluetoothNXT finding...\n";
+	//std::cout << "BluetoothNXT finding...\n";
 	std::vector<std::pair<std::string, std::string> > foundDevs;
 
 	int max_rsp, num_rsp;
@@ -85,7 +85,7 @@ std::vector<std::pair<std::string, std::string> > BluetoothNXT::findNxt(char add
 		if (hci_read_remote_name(sock, &(inquiryInfo + i)->bdaddr,
 				sizeof(name), name, 0) < 0)
 			strcpy(name, "[unknown]");
-		printf("Found: %s  %s\n", addr, name);
+		//printf("Found: %s  %s\n", addr, name);
 		currDev.first = std::string(addr);
 		currDev.second = std::string(name);
 		foundDevs.push_back(currDev);
@@ -100,7 +100,7 @@ std::vector<std::pair<std::string, std::string> > BluetoothNXT::findNxt(char add
 int BluetoothNXT::connectNxt(char *btAddress) {
 	struct sockaddr_rc addr = { 0 };
 	int status;
-	printf("Connect to %s \n", btAddress);
+	//printf("Connect to %s \n", btAddress);
 
 	nxtSocket = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
 
@@ -110,7 +110,7 @@ int BluetoothNXT::connectNxt(char *btAddress) {
 
 	status = connect(nxtSocket, (struct sockaddr *) &addr, sizeof(addr));
 	if (status < 0) {
-		perror("Error connecting Bluetooth");
+		//perror("Error connecting Bluetooth");
 		return status;
 	}
 
