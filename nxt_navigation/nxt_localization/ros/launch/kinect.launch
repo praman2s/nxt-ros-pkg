@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- transformation between the world reference frame and the kinect camera frame -->
+	<!-- args: x y z roll pitch yaw world_frame camera_frame publish_rate -->
+	<node pkg="tf" type="static_transform_publisher" name="openni_base_link" args="0.0 0.0 1.59 0 0.785 0 /world /openni_camera 100" />
+
+	<!-- kinect camera node -->
+	<include file="$(find openni_camera)/launch/openni_node.launch" />
+</launch>
