@@ -361,9 +361,9 @@ namespace ar_pose
 			  this->transform_listener_->waitForTransform("/world", msg->header.frame_id, msg->header.stamp, ros::Duration(1.0));
 			  this->transform_listener_->transformPose("/world", pose, pose_transformed);
 
-			  // conver meter to millimeter and radion to degree
-			  int x = (int)(pose_transformed.pose.position.x * 1000);
-			  int y = (int)(pose_transformed.pose.position.y * 1000);
+			  // conver meter to cm and radion to degree
+			  int x = (int)(pose_transformed.pose.position.x * 100);
+			  int y = (int)(pose_transformed.pose.position.y * 100);
 			  int theta = (int)(tf::getYaw(pose_transformed.pose.orientation) * (180.0/M_PI));
 
 			  // establish and send bluetooth message
