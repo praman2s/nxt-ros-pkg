@@ -127,7 +127,7 @@ namespace ar_pose
     // establish bluetooth connection
     if(publishBluetooth_)
     {
-    	char user_input = ' ';
+    	string user_input = "";
     	int user_choice = -1;
     	char addr[19];
     	std::vector<std::pair<std::string, std::string> > found_devices;
@@ -153,7 +153,9 @@ namespace ar_pose
 			cout << endl << "Please select an option (0 - " << found_devices.size() << "): ";
 			cin >> user_input;
 
-			user_choice = atoi(&user_input);
+			cout << "ssss: " << user_input << endl;
+
+			user_choice = atoi(user_input.c_str());
 
 		}while(user_choice <= 0 || user_choice > (int)found_devices.size());
 
