@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-	<!-- transformation between the world reference frame and the kinect camera frame -->
-	<!-- args: x y z roll pitch yaw world_frame camera_frame publish_rate -->
-	<node pkg="tf" type="static_transform_publisher" name="openni_base_link" args="0.0 0.0 1.59 0 0.785 0 /world /openni_camera 100" />
-
-	<!-- kinect camera node -->
-	<include file="$(find openni_camera)/launch/openni_node.launch" />
-
 	<!-- node to detect the ar markers and publish these information on different channels, e.g. bluetooth -->
 	<node name="ar_kinect_bluetooth" pkg="nxt_localization" type="ar_kinect_bluetooth" respawn="false" output="screen">
 		<param name="marker_pattern_list" type="string" value="$(find nxt_localization)/ros/cfg/markers.cfg"/>
@@ -15,6 +8,6 @@
 		<param name="publish_tf" type="int" value="1"/>
 		<param name="publish_visual_markers" type="int" value="0"/>
 		<param name="publish_ar_pose_makers" type="int" value="0"/>
-		<param name="publish_to_bluetooth" type="int" value="0"/>
+		<param name="publish_to_bluetooth" type="int" value="1"/>
 	</node>
 </launch>
